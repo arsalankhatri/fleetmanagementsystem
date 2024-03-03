@@ -1,4 +1,3 @@
-// src/routes/api/maintenanceRoutes.ts
 import express from 'express';
 import * as maintenanceController from '../../controllers/maintenanceController';
 
@@ -10,6 +9,8 @@ const router = express.Router();
  *   post:
  *     summary: Log maintenance for a vehicle
  *     description: Log maintenance history for a specific vehicle.
+ *     tags: 
+ *       - Maintenance Logs
  *     parameters:
  *       - in: path
  *         name: vehicleId
@@ -24,20 +25,25 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               status:
- *                type: string
- *                description: Status of the vehicle.
  *               description:
  *                 type: string
  *                 description: Description of the maintenance.
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Date of the maintenance.
+ *             required:
+ *               - description
  *     responses:
  *       201:
- *         description: Maintenance logged successfully.
+ *         description: Maintenance logged successfully. Returns the logged maintenance record.
  *       400:
  *         description: Bad request. Invalid input data.
  *   get:
  *     summary: Get maintenance history for a vehicle
  *     description: Retrieve the maintenance history for a specific vehicle.
+ *     tags: 
+ *       - Maintenance Logs
  *     parameters:
  *       - in: path
  *         name: vehicleId
@@ -47,11 +53,12 @@ const router = express.Router();
  *           type: string
  *     responses:
  *       200:
- *         description: Successful retrieval. Returns the maintenance history.
+ *         description: Successful retrieval. Returns an array of maintenance records.
  *       404:
  *         description: Vehicle not found or maintenance history not available.
  */
 router.post('/:vehicleId', maintenanceController.logMaintenance);
 router.get('/:vehicleId', maintenanceController.getMaintenanceHistory);
+
 
 export default router;

@@ -26,6 +26,14 @@ const vehicleRoutes = express.Router();
  *     responses:
  *       201:
  *         description: Successful registration. Returns the registered vehicle.
+ *         content:
+ *           application/json:
+ *             example:
+ *               vmodel: "ExampleModel"
+ *               name: "ExampleName"
+ *               type: "ExampleType"
+ *               status: "active"
+ *               picture: "example_picture.jpg"
  *       400:
  *         description: Bad request. Invalid input data.
  * 
@@ -36,12 +44,20 @@ const vehicleRoutes = express.Router();
  *       - Vehicles
  *     responses:
  *       200:
- *         description: Successful retrieval. Returns the list of vehicles.
+ *         description: Successful retrieval. Returns an array of vehicles.
+ *         content:
+ *           application/json:
+ *             example:
+ *               - vmodel: "ExampleModel"
+ *                 name: "ExampleName"
+ *                 type: "ExampleType"
+ *                 status: "active"
+ *                 picture: "example_picture.jpg"
  *       500:
  *         description: Internal server error.
  */
 vehicleRoutes.route('/')
-.post(vehicleController.registerVehicle)
-.get(vehicleController.getVehicles);
+    .post(vehicleController.registerVehicle)
+    .get(vehicleController.getVehicles);
 
 export default vehicleRoutes;

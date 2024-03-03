@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swaggerConfig';
 import path from 'path';
 import multer from 'multer';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -29,8 +30,12 @@ mongoose.connection.on("disconnected", () => {
   console.log("MongoDB disconnected");
 });
 
-// Add middleware for serving static files
-app.use(express.static('public'));
+// Check if 'public/uploads' directory exists, create it if not
+const uploadsPath = path.join(__dirname, '../public/uploads');
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("Created 'public/uploads' directory");
+}
 
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
@@ -46,6 +51,7 @@ const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(upload.single('picture')); // Use multer middleware for handling file uploads
 
 // Serve Swagger documentation
@@ -56,4 +62,5 @@ app.listen(process.env.PORT || "3001", () => {
   connect();
   console.log("Connected to backend.");
 });
+
 export default app;
