@@ -14,3 +14,10 @@ export const getVehicleIds = async (): Promise<string[]> => {
     return vehicles.map((vehicle) => vehicle.id);
 };
 
+export const updateVehicle = async (id: string, vehicleData: any): Promise<Vehicle> => {
+    const updatedVehicle = await VehicleModel.findByIdAndUpdate(id, vehicleData, { new: true });
+    if (!updatedVehicle) {
+        return {} as Vehicle;
+      }
+    return updatedVehicle;
+  };

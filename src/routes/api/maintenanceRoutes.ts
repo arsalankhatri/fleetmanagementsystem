@@ -24,6 +24,9 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               status:
+ *                type: string
+ *                description: Status of the vehicle.
  *               description:
  *                 type: string
  *                 description: Description of the maintenance.

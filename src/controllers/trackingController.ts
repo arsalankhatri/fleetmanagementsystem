@@ -1,8 +1,7 @@
 
 import { Request, Response } from 'express';
 import * as trackingService from '../services/trackingService';
-import * as VehicleService from '../services/vehicleService';
-const vehicleTrackingData: Record<string, { status: string, location: string }> = {};
+const vehicleTrackingData: Record<string, { status: string, location: string, speed: number }> = {};
 
 export const getVehicleTracking = (req: Request, res: Response): void => {
     const { vehicleId } = req.params;
@@ -15,11 +14,9 @@ export const getVehicleTracking = (req: Request, res: Response): void => {
     }
 };
 
-export const updateVehicleTracking = (vehicleId: string, status: string, location: string): void => {
-    vehicleTrackingData[vehicleId] = { status, location };
+export const updateVehicleTracking = (vehicleId: string, status: string, location: string, speed: number): void => {
+    vehicleTrackingData[vehicleId] = { status, location, speed};
 };
 
 // Start the simulation when the application starts
-VehicleService.getVehicleIds().then((vehicleIds:string[]) => {
-    trackingService.simulateTrackingUpdates(vehicleIds, updateVehicleTracking);
-})
+    trackingService.simulateTrackingUpdates(updateVehicleTracking);

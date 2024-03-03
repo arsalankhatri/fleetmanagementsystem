@@ -5,9 +5,9 @@ import * as usageService from '../services/usageService';
 export const logUsage = async (req: Request, res: Response): Promise<void> => {
     try {
         const { vehicleId } = req.params;
-        const { hoursOperated, distanceTraveled } = req.body;
+        const { hoursOperated, distanceTraveled, date } = req.body;
 
-        await usageService.logUsage(vehicleId, hoursOperated, distanceTraveled);
+        await usageService.logUsage(vehicleId, hoursOperated, distanceTraveled, date);
 
         res.status(201).json({ message: 'Usage logged successfully.' });
     } catch (error) {

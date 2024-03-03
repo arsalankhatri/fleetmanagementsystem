@@ -1,12 +1,14 @@
 import MaintenanceRecordModel, { MaintenanceRecord } from '../models/maintenanceModel';
 
-export const logMaintenance = async (vehicleId: string, description: string): Promise<void> => {
+export const logMaintenance = async (vehicleId: string, record: MaintenanceRecord): Promise<MaintenanceRecord> => {
     try {
         const maintenanceRecord = new MaintenanceRecordModel({
             vehicleId,
-            description,
+            description: record.description,
+            date: new Date(record.date),
+            typeofmaintenance: record.typeofmaintenance
         });
-        await maintenanceRecord.save();
+        return await maintenanceRecord.save();
     } catch (error) {
         throw new Error('Failed to log maintenance.');
     }

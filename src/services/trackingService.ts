@@ -1,18 +1,19 @@
-// src/services/trackingService.ts
+import * as VehicleService from '../services/vehicleService';
 export const simulateTrackingUpdates = (
-    vehicleIds: string[],
-    updateCallback: (vehicleId: string, status: string, location: string) => void
+    updateCallback: (vehicleId: string, status: string, location: string, speed: number) => void
 ): void => {
-    setInterval(() => {
+    setInterval(async () => {
+       const vehicleIds =  await VehicleService.getVehicleIds();
         // Simulate tracking updates for registered vehicles
         vehicleIds.forEach(vehicleId => {
             const statusOptions = ['active', 'maintenance'];
             const randomStatus = statusOptions[Math.floor(Math.random() * statusOptions.length)];
             const randomLocation = generateRandomLocation();
+            const randomSpeed = Math.floor(Math.random() * (200 - 1 + 1)) + 1;
 
-            updateCallback(vehicleId, randomStatus, randomLocation);
+            updateCallback(vehicleId, randomStatus, randomLocation, randomSpeed);
         });
-    }, 5000); // Update every 5 seconds
+    }, 3000); // Update every 3 seconds
 };
 
 const generateRandomLocation = (): string => {
