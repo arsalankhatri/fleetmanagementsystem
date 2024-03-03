@@ -1,4 +1,3 @@
-// src/routes/apiRoutes.ts
 import express from 'express';
 import vehicleRoutes from './api/vehicleRoutes';
 import trackingRoutes from './api/trackingRoutes';

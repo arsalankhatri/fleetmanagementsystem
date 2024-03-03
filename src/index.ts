@@ -40,10 +40,10 @@ if (!fs.existsSync(uploadsPath)) {
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads'); // Set the destination folder for uploaded files
+    cb(null, 'public/uploads');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Set a unique filename
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -51,10 +51,9 @@ const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('public')); // Serve static files from the 'public' directory
-app.use(upload.single('picture')); // Use multer middleware for handling file uploads
+app.use(express.static('public'));
+app.use(upload.single('picture'));
 
-// Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api', apiRouter);
 

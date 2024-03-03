@@ -1,4 +1,3 @@
-// src/services/usageService.ts
 import UsageRecordModel from '../models/usageModel';
 
 export const logUsage = async (vehicleId: string, hoursOperated: number, distanceTraveled: number, timestamp: string): Promise<void> => {
@@ -42,7 +41,7 @@ export const getUsageAnalytics = async (vehicleId: string): Promise<{ vehicleId:
                 }
             },
             {
-                $sort: { date: 1 } // Sort by date in ascending order
+                $sort: { date: 1 }
             }
         ]);
 
